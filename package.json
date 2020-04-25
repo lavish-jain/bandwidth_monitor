@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/lavish-jain/bandwidth_monitor#readme",
   "dependencies": {
-    "inquirer": "^7.1.0",
     "nodemailer": "^6.4.6"
   }
 }
