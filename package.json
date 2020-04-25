@@ -1,0 +1,26 @@
+{
+  "name": "bandwidth_monitor",
+  "version": "1.0.0",
+  "description": "A Linux CLI tool that calculates total bandwidth used and sends scheduled updates over mail",
+  "main": "bin/index.mjs",
+  "bin": {
+    "bandwidthmonitor": "./bin/index.mjs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lavish-jain/bandwidth_monitor.git"
+  },
+  "author": "Lavish Jain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lavish-jain/bandwidth_monitor/issues"
+  },
+  "homepage": "https://github.com/lavish-jain/bandwidth_monitor#readme",
+  "dependencies": {
+    "inquirer": "^7.1.0",
+    "nodemailer": "^6.4.6"
+  }
+}
