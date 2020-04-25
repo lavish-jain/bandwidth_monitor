@@ -1,31 +1,42 @@
 import getBytes from './getBytes.mjs'
 import writeToFile from './writeToFile.mjs'
+import fs from 'fs'
 
 let baseBytes = {
   received: null,
-  transmitted: null
+  transmitted: null,
+  lastTimestamp: null
 }
 const main = async () => {
-  // Getting total bandwidth used at the start of monitoring to have a reference
-  baseBytes = await getBytes()
-  const userinfo = {
-      name: process.env.USER || 'client',
-      timeperiod: process.env.BANDWIDTH_MONITOR_PERIOD || '1D'
-  }
-  userinfo.timeperiod = resolveTime(userinfo.timeperiod)
-  monitor(userinfo)
+    // Getting total bandwidth used at the start of monitoring to have a referenc
+    fs.stat(`${process.env.HOME}/bandwidth.tmp`, async(err, stat)=> {
+        if(!err) {
+            // File exists
+            baseBytes = readBandwidthFromFile()
+        } else {
+            baseBytes = await getBytes()
+        }
+        const userinfo = {
+            name: process.env.USER || 'client',
+            timeperiod: process.env.BANDWIDTH_MONITOR_PERIOD || '1D'
+        }
+        userinfo.timeperiod = resolveTime(userinfo.timeperiod)
+        monitor(userinfo)
+    })
 }
 
 const monitor = async (userinfo, counter = 0) => {
   // counter = 0 implies that monitor has been called the first time
-  if (counter !== 0) {
+  // If system rebooted and the time since last update is greater than the frequency
+  if (counter !== 0 || Date.now()/1000 - baseBytes.lastTimestamp >= userinfo.timeperiod) {
     // Time to calculate bandwidth
     const bytes = await getBytes()
     if (bytes) {
       // size in MB
       const received = (bytes.received - baseBytes.received) / 1000000
       const transmitted = (bytes.transmitted - baseBytes.transmitted) / 1000000
-      writeToFile(userinfo, received, transmitted)
+      const lastTimestamp = bytes.lastTimestamp
+      writeToFile(userinfo, received, transmitted, lastTimestamp)
       baseBytes = bytes
     }
   }
@@ -42,6 +53,18 @@ const resolveTime = stringPeriod => {
   const seconds = parseInt(stringPeriod.match(/[0-9]+(?=s)/) ? stringPeriod.match(/[0-9]+(?=s)/)[0] : '0')
   let period = seconds + minutes * 60 + hours * 60 * 60 + days * 24 * 60 * 60 + months * 30 * 24 * 60 * 60 + years * 365 * 24 * 60 * 60
   return period
+}
+
+// Reads bandwidth data from last saved point 
+const readBandwidthFromFile = () => {
+    const data = fs.readFileSync(`${process.env.HOME}/bandwidth.tmp`).toString()
+    const arr = data.split(' ')
+    const obj = {
+        received: arr[0],
+        transmitted: arr[1],
+        lastTimestamp: arr[2]
+    }
+    return obj
 }
 
 export default main

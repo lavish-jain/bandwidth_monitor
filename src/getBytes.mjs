@@ -14,7 +14,8 @@ const getBytes = async () => {
   })
   const obj = {
     received: bytesRecieved,
-    transmitted: bytesTransmitted
+    transmitted: bytesTransmitted,
+    lastTimestamp: Date.now()/1000
   }
   return obj
 }
