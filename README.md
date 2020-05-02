@@ -64,8 +64,6 @@ make update
 
 Lavish Jain – lavishrjain1997@gmail.com
 
-Distributed under the XYZ license. See ``LICENSE`` for more information.
-
 [https://github.com/lavish-jain/bandwidth_monitior](Github Repo Link)
 
 ## Contributing
