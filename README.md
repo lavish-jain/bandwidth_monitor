@@ -64,8 +64,6 @@ make update
 
 Lavish Jain – lavishrjain1997@gmail.com
 
-[https://github.com/lavish-jain/bandwidth_monitior](Github Repo Link)
-
 ## Contributing
 
 1. Fork it (<https://github.com/lavish-jain/bandwidth_monitior/fork>)
