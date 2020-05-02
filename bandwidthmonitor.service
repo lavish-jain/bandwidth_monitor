@@ -1,0 +1,11 @@
+[Unit]
+Description=bandwidthmonitor - Keeping track of your bandwidth usage made easy
+Documentation=https://github.com/lavish-jain/bandwidth_monitor
+
+[Service]
+Type=simple
+ExecStart=bandwidthmonitor
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

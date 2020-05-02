@@ -19,7 +19,5 @@
     "url": "https://github.com/lavish-jain/bandwidth_monitor/issues"
   },
   "homepage": "https://github.com/lavish-jain/bandwidth_monitor#readme",
-  "dependencies": {
-    "nodemailer": "^6.4.6"
-  }
+  "dependencies": {}
 }

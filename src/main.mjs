@@ -52,6 +52,9 @@ const resolveTime = stringPeriod => {
   const minutes = parseInt(stringPeriod.match(/[0-9]+(?=m)/) ? stringPeriod.match(/[0-9]+(?=m)/)[0] : '0')
   const seconds = parseInt(stringPeriod.match(/[0-9]+(?=s)/) ? stringPeriod.match(/[0-9]+(?=s)/)[0] : '0')
   let period = seconds + minutes * 60 + hours * 60 * 60 + days * 24 * 60 * 60 + months * 30 * 24 * 60 * 60 + years * 365 * 24 * 60 * 60
+  // If invalid timeperiod is given, take default.
+  if(period === 0)
+    period = 1 * 24 * 60 * 60
   return period
 }
 
